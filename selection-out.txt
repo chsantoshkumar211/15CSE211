@@ -1,0 +1,3 @@
+Time taken for selection sort with 100 elements in seconds: 0.0006203651428222656
+Time taken for selection sort with 10000 elements in seconds: 6.016618251800537
+Time taken for selection sort with 100000 elements in seconds: 620.539920091629

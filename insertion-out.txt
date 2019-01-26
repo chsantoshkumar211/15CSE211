@@ -1,0 +1,3 @@
+Time taken for insertion sort with 100 elements in seconds: 0.0006051063537597656
+Time taken for insertion sort with 10000 elements in seconds: 6.4358134269714355
+Time taken for insertion sort with 100000 elements in seconds: 662.9021363258362
