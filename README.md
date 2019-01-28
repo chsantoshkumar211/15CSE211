@@ -6,6 +6,8 @@ ROLL NO: AM.EN.U4CSE17117
  - Bubble sort
  - Insertion sort
  - Selection sort
+ - Merge sort
+ - Quick sort
 
 ## Info
 Programming language used : Python3
@@ -18,3 +20,5 @@ Command to run the python script through terminal :
 - python3 bubble_sort.py
 - python3 selection_sort.py
 - python3 insertion_sort.py
+- python3 merge_sort.py
+- python3 quick_sort.py
