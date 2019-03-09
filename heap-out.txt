@@ -1,0 +1,4 @@
+
+Time taken for heap sort with 1000 elements in seconds: 0.0029096603393554688
+Time taken for heap sort with 10000 elements in seconds: 0.0407562255859375
+Time taken for heap sort with 100000 elements in seconds: 0.5602200031280518
