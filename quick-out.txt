@@ -1,3 +1,2 @@
-Time taken for quick sort with 100 elements in seconds: 2.5128285884857178
-Time taken for quick sort with 10000 elements in seconds: 2.6226043701171875e-06
-Time taken for quick sort with 50000 elements in seconds: 9.5367431640625e-07
+Time taken for quick sort with 100 elements in seconds: 0.00015878677368164062
+Time taken for quick sort with 10000 elements in seconds: 0.0808572769165039

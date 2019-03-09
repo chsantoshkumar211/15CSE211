@@ -39,16 +39,15 @@ def quick_sort(arr,l,h):
             quick_sort(arr, l, pi-1) 
             quick_sort(arr, pi+1, h) 
     else:
-        selection(arr)
-def selection(a):
-    for i in range(0,len(a)):
-        m = i
-        for j in range(i,len(a)):
-            if a[j]<a[m]:
-                m=j
-        temp=a[i]
-        a[i]=a[m]
-        a[m]=temp
+        insertion(arr)
+def insertion(a):
+    for i in range(1,len(a)-1):
+        key = a[i]
+        j=i-1
+        while j>=0 and key<a[j]:
+            a[j+1]=a[j]
+            j-=1
+        a[j+1]=key
 f=open("quick-out.txt","w")
 a=[]
 a1=[]
@@ -56,9 +55,9 @@ a2=[]
 for i in range(0,99):
     a.append(random.randint(1,100))
 for i in range(0,9999):
-    a.append(random.randint(1,100))
-for i in range(0,49999):
-    a.append(random.randint(1,100))
+    a1.append(random.randint(1,100))
+for i in range(0,99999):
+    a2.append(random.randint(1,100))
 
 t1=time.time()
 quick_sort(a,0,len(a)-1) 
@@ -70,7 +69,7 @@ quick_sort(a1,0,len(a1)-1)
 t2=time.time()
 f.write("\nTime taken for quick sort with 10000 elements in seconds: "+str(t2-t1))
 
-t1=time.time()
-quick_sort(a2,0,len(a2)-1) 
-t2=time.time()
-f.write("\nTime taken for quick sort with 50000 elements in seconds: "+str(t2-t1))
+# t1=time.time()
+# quick_sort(a2,0,len(a2)-1) 
+# t2=time.time()
+# f.write("\nTime taken for quick sort with 50000 elements in seconds: "+str(t2-t1))
