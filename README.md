@@ -8,6 +8,7 @@ ROLL NO: AM.EN.U4CSE17117
  - Selection sort
  - Merge sort
  - Quick sort
+ - Heap sort
 
 ## Info
 Programming language used : Python3
@@ -16,9 +17,10 @@ Input sizes : 100, 10,000 and 1,00,000
 Output : The outputs of the programmes are stored in the text files with the info regarding the time taken to sort the arrays
 
 ## How to run
-Command to run the python script through terminal :
+Commands to run the python script through terminal :
 - python3 bubble_sort.py
 - python3 selection_sort.py
 - python3 insertion_sort.py
 - python3 merge_sort.py
 - python3 quick_sort.py
+- python3 heap_sort.py
