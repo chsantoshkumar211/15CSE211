@@ -20,17 +20,24 @@ class Graph:
         for i in range(self.V): 
             if visited[i] == False: 
                 self.topologicalSortUtil(i,visited,stack)
-        for i in stack:
-            f.write(str(i)+" ")
-  
-g= Graph(6) 
-g.addEdge(5, 2); 
-g.addEdge(5, 0); 
-g.addEdge(4, 0); 
-g.addEdge(4, 1); 
-g.addEdge(2, 3); 
-g.addEdge(3, 1);
-
-f=open("top_out.txt","w")
+        out.write("The topological sort of the first graph is: \n")
+        sr=65
+        for i in range(len(stack)-1,-1,-1):
+            out.write(chr(sr)+" "+str(stack[i]+1)+"\n")
+            sr+=1
+        out.write("\n")
+g=Graph(7)
+i=0
+out=open("out.txt","w")
+with open("graph.txt","r") as f:
+    for line in f:
+        l=str(line).split()
+        v=1
+        while v<len(l):
+            g.addEdge(int(l[v])-1,i)
+            v+=2
+        i+=1
+        if i>=7:
+            break
 g.topologicalSort()
 f.close()

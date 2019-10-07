@@ -1,77 +1,126 @@
+from collections import defaultdict 
 import sys 
-  
+
+class Heap(): 
+
+    def __init__(self): 
+        self.array = [] 
+        self.size = 0
+        self.pos = [] 
+
+    def newMinHeapNode(self, v, dist): 
+        minHeapNode = [v, dist] 
+        return minHeapNode 
+    def swapMinHeapNode(self,a, b): 
+        t = self.array[a] 
+        self.array[a] = self.array[b] 
+        self.array[b] = t 
+
+    def minHeapify(self, idx): 
+        smallest = idx 
+        left = 2*idx + 1
+        right = 2*idx + 2
+
+        if left < self.size and self.array[left][1] < self.array[smallest][1]: 
+            smallest = left 
+
+        if right < self.size and self.array[right][1] < self.array[smallest][1]: 
+            smallest = right
+        if smallest != idx:
+            self.pos[ self.array[smallest][0] ] = idx 
+            self.pos[ self.array[idx][0] ] = smallest  
+            self.swapMinHeapNode(smallest, idx) 
+            self.minHeapify(smallest)
+    def extractMin(self):
+        if self.isEmpty() == True:
+            return
+        root = self.array[0] 
+        lastNode = self.array[self.size - 1] 
+        self.array[0] = lastNode 
+        self.pos[lastNode[0]] = 0
+        self.pos[root[0]] = self.size - 1
+        self.size -= 1
+        self.minHeapify(0) 
+        return root 
+
+    def isEmpty(self): 
+        return True if self.size == 0 else False
+
+    def decreaseKey(self, v, dist): 
+        i = self.pos[v]
+        self.array[i][1] = dist 
+        while i > 0 and self.array[i][1] < self.array[(i - 1) / 2][1]: 
+
+            self.pos[ self.array[i][0] ] = (i-1)/2
+            self.pos[ self.array[(i-1)/2][0] ] = i 
+            self.swapMinHeapNode(i, (i - 1)/2 ) 
+            i = (i - 1) / 2; 
+    def isInMinHeap(self, v): 
+        if self.pos[v] < self.size: 
+            return True
+        return False
+def printArr(dist, n): 
+    sr=65
+    for i in range(n): 
+        out.write("Shortest path from A to "+chr(sr)+" is "+str(dist[i])+"\n") 
+        sr+=1
+
+
 class Graph(): 
-  
-    def __init__(self, vertices): 
-        self.V = vertices 
-        self.graph = [[0 for column in range(vertices)]  
-                      for row in range(vertices)] 
-  
-    def printSolution(self, dist): 
-        f.write("Vertex tDistance from Source\n")
-        s=""
-        for node in range(self.V): 
-            s+=(str(node)+" t "+str(dist[node])+"\n") 
-        f.write(s)
-    # A utility function to find the vertex with  
-    # minimum distance value, from the set of vertices  
-    # not yet included in shortest path tree 
-    def minDistance(self, dist, sptSet): 
-  
-        # Initilaize minimum distance for next node 
-        min = sys.maxsize 
-  
-        # Search not nearest vertex not in the  
-        # shortest path tree 
-        for v in range(self.V): 
-            if dist[v] < min and sptSet[v] == False: 
-                min = dist[v] 
-                min_index = v 
-  
-        return min_index 
-  
-    # Funtion that implements Dijkstra's single source  
-    # shortest path algorithm for a graph represented  
-    # using adjacency matrix representation 
-    def dijkstra(self, src): 
-  
-        dist = [sys.maxsize] * self.V 
-        dist[src] = 0
-        sptSet = [False] * self.V 
-  
-        for cout in range(self.V): 
-  
-            # Pick the minimum distance vertex from  
-            # the set of vertices not yet processed.  
-            # u is always equal to src in first iteration 
-            u = self.minDistance(dist, sptSet) 
-  
-            # Put the minimum distance vertex in the  
-            # shotest path tree 
-            sptSet[u] = True
-  
-            # Update dist value of the adjacent vertices  
-            # of the picked vertex only if the current  
-            # distance is greater than new distance and 
-            # the vertex in not in the shotest path tree 
-            for v in range(self.V): 
-                if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]: 
-                        dist[v] = dist[u] + self.graph[u][v] 
-  
-        self.printSolution(dist) 
-  
-# Driver program 
-g = Graph(9) 
-g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0], 
-           [4, 0, 8, 0, 0, 0, 0, 11, 0], 
-           [0, 8, 0, 7, 0, 4, 0, 0, 2], 
-           [0, 0, 7, 0, 9, 14, 0, 0, 0], 
-           [0, 0, 0, 9, 0, 10, 0, 0, 0], 
-           [0, 0, 4, 14, 10, 0, 2, 0, 0], 
-           [0, 0, 0, 0, 0, 2, 0, 1, 6], 
-           [8, 11, 0, 0, 0, 0, 1, 0, 7], 
-           [0, 0, 2, 0, 0, 0, 6, 7, 0] 
-          ]; 
-f=open("dij_out.txt","w")
-g.dijkstra(0);
-f.close()
+
+	def __init__(self, V): 
+		self.V = V 
+		self.graph = defaultdict(list)
+	def addEdge(self, src, dest, weight):
+		newNode = [dest, weight] 
+		self.graph[src].insert(0, newNode)
+		newNode = [src, weight] 
+		self.graph[dest].insert(0, newNode)
+	def dijkstra(self, src): 
+
+		V = self.V 
+		dist = []
+		minHeap = Heap()
+		for v in range(V): 
+			dist.append(sys.maxint) 
+			minHeap.array.append( minHeap.newMinHeapNode(v, dist[v]) ) 
+			minHeap.pos.append(v)
+		minHeap.pos[src] = src 
+		dist[src] = 0
+		minHeap.decreaseKey(src, dist[src]) 
+		minHeap.size = V;  
+		while minHeap.isEmpty() == False: 
+			newHeapNode = minHeap.extractMin() 
+			u = newHeapNode[0]
+			for pCrawl in self.graph[u]: 
+
+				v = pCrawl[0] 
+				if minHeap.isInMinHeap(v) and dist[u] != sys.maxint and	pCrawl[1] + dist[u] < dist[v]: 
+						dist[v] = pCrawl[1] + dist[u]
+						minHeap.decreaseKey(v, dist[v]) 
+
+		printArr(dist,V) 
+out=open("out.txt","a")
+out.write("Shortest paths from vertex A of graph 2:\n")
+with open("graph.txt","r") as f:
+    i=0
+    for line in f:
+        i+=1
+        if(i==7):
+            break
+    graph = Graph(7)
+    i=0
+    for line in f:
+        l=str(line).split()
+        v=1
+        w=2
+        while(w<len(l)):
+            graph.addEdge(i,int(l[v])-1,int(l[w]))
+            w=w+2
+            v=v+2
+        i+=1
+        if(i==7):
+            break
+    graph.dijkstra(0)
+    f.close()
+    

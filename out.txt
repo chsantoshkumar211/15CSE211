@@ -1,0 +1,17 @@
+The topological sort of the first graph is: 
+A 1
+B 2
+C 5
+D 4
+E 3
+F 7
+G 6
+
+Shortest paths from vertex A of graph 2:
+Shortest path from A to A is 0
+Shortest path from A to B is 2
+Shortest path from A to C is 3
+Shortest path from A to D is 1
+Shortest path from A to E is 3
+Shortest path from A to F is 6
+Shortest path from A to G is 5

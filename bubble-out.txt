@@ -1,3 +1,0 @@
-Time taken for bubble sort with 100 elements in seconds: 0.0011937618255615234
-Time taken for bubble sort with 10000 elements in seconds: 13.685590505599976
-Time taken for bubble sort with 100000 elements in seconds: 1381.3349344730377
